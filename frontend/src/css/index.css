@@ -1,0 +1,92 @@
+/* ============================================================
+   index.css — Design tokens, resets, global typography
+   ============================================================ */
+
+:root {
+  /* === BASE COLORS === */
+  --bg:           #000000;
+  --bg-card:      #16171D;
+  --bg-hover:     #313441;
+
+  /* === TEXT === */
+  --text:         #79BEDF;
+  --text-h:       #79BEDF;
+  --text-muted:   #4a6a7d;
+
+  /* === STRUCTURE === */
+  --border:       #2A2D36;
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+
+  /* === BRAND COLORS === */
+  --primary-light: #2b2e38;
+  --primary:       #16171D;
+  --primary-dark:  #111216;
+
+  /* === ACCENTS === */
+  --accent:        #FBCC29;
+  --accent-soft:   rgba(251, 204, 41, 0.15);
+
+  /* === SUPPORT === */
+  --success:       #5B7553;
+
+  /* === UI === */
+  --code-bg:       #1f2028;
+  --social-bg:     rgba(47, 48, 58, 0.5);
+
+  /* === TYPOGRAPHY === */
+  --sans: 'Inter', system-ui, sans-serif;
+  font: 18px/145% var(--sans);
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* === RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* === GLOBAL TYPOGRAPHY === */
+h1, h2, h3 {
+  font-weight: 500;
+  color: var(--text-h);
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* === ROOT SHELL === */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}

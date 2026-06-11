@@ -1,0 +1,735 @@
+/* ============================================================
+   components.css — Feature-level component styles
+   Used by: Auth, Info, Availability, Courses, SuggestedGroups
+   ============================================================ */
+
+/* ── AUTH (Login.jsx, Register.jsx) ─────────────────────── */
+
+.auth-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: var(--bg);
+  padding: 32px 16px;
+}
+
+.auth-logo {
+  height: 120px;
+  width: auto;
+}
+
+.auth-card {
+  background: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-card h2 {
+  margin: 0;
+}
+
+.auth-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+
+.auth-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.auth-input {
+  padding: 10px 12px;
+  background: var(--primary-dark);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.auth-input:focus {
+  border-color: var(--text-muted);
+}
+
+.auth-input::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-submit-btn {
+  margin-top: 8px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.auth-submit-btn:hover {
+  opacity: 0.85;
+}
+
+.auth-switch {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.auth-switch a {
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* ── PROFILE INFO (Info.jsx) ─────────────────────────────── */
+
+#info-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+  gap: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--primary-dark);
+}
+
+#info-name {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--text-h);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+#info-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.info-value {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.info-edit-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.info-button {
+  background-color: transparent;
+  color: white;
+}
+
+.info-edit-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 0px 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.info-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--primary-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.update-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.update-container label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.update-container input {
+  padding: 8px 10px;
+  background: var(--primary-light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.update-container input:focus {
+  border-color: var(--text-muted);
+}
+
+.update-form button[type="submit"] {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.update-form button[type="submit"]:hover {
+  opacity: 0.85;
+}
+
+.close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.close-btn:hover {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:16px;
+  padding: 16px;
+  position: absolute;
+  background-color: rgb(7, 7, 7);
+  width:300px;
+  top: 25%;
+  left: 25%;
+  box-shadow: 6px 6px 10px 0px rgb(34, 34, 34);
+}
+
+.update-form > div {
+  display: flex;
+  gap: 8px;
+}
+
+.update-form > div > input {
+  background-color: var(--primary-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.update-form > .close-btn {
+  width: 25px;
+  align-self: flex-end;
+}
+
+.update-form > button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  width: 50%;
+  padding: 4px 10px;
+  font-size: 13px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.update-form > button:hover {
+  background-color: var(--primary-light);
+  color: var(--text);
+}
+
+
+/* ── AVAILABILITY (Availability.jsx) ─────────────────────── */
+.avail-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.avail-header {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--primary-dark);
+  gap: 2px;
+}
+.avail-header h3 {
+  margin: 0;
+}
+
+.avail-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.avail-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.avail-form > div {
+  text-wrap: nowrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.avail-form input {
+  background-color: var(--primary-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.avail-form input:focus {
+  border-color: var(--text-muted);
+}
+
+.avail-form > button {
+  background-color: var(--accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+
+.avail-form > button:hover {
+  opacity: 0.85;
+}
+
+.availabilities-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  overflow-y: auto;     
+  flex: 1;              
+  min-height: 0;        
+}
+
+.availabilities {
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background-color: var(--primary-light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.availabilities > div {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.availabilities > div > div {
+  display: flex;
+  gap: 8px;
+}
+
+.availabilities > div > span {
+  display: inline-block;
+  width: 100px;
+}
+
+.availabilities > button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: #c0392b;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.availabilities > button:hover {
+  border-color: #c0392b;
+  color: #fff;
+}
+
+
+/* ── SUGGESTED GROUPS (SuggestedGroups.jsx) ──────────────── */
+
+
+.group-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+    .group-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--primary-light);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.group-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  padding-bottom: 0px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1px;
+}
+
+.group-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.group-join-btn {
+  margin-top: 4px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 13px;
+  transition: opacity 0.15s;
+}
+
+.group-join-btn:hover {
+  opacity: 0.85;
+    }
+
+
+
+/* ── COURSES (Courses.jsx) ───────────────────────────────── */
+
+.courses-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.courses-form-card {
+  background: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.courses-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+}
+
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.course-grid input {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--primary-dark);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.course-grid input:focus {
+  border-color: var(--text-muted);
+}
+
+.submit-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+  opacity: 0.85;
+}
+
+.courses-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courses-list-card {
+  background: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.courses-list-card h3 {
+  margin: 0;
+}
+
+.course-cards-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.course-card {
+  background: var(--primary-light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.course-card-top {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.course-code {
+  font-weight: 600;
+  color: var(--text-h);
+  font-size: 15px;
+}
+
+.course-name {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.course-card-bottom {
+  display: flex;
+  gap: 24px;
+}
+
+.course-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.course-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.enroll-btn {
+  margin-top: 4px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.enroll-btn:hover {
+  opacity: 0.85;
+}
+
+.remove-btn {
+  margin-top: 4px;
+  padding: 6px;
+  border: 1px solid #c0392b;
+  border-radius: 6px;
+  background: transparent;
+  color: #c0392b;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+  color: #fff;
+}
+
+/* ── CREATE GROUP (CreateGroup.jsx) ─────────────────────── */
+
+.create-group-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.create-group-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.create-group-field input,
+.create-group-select {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--primary-dark);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.create-group-field input:focus,
+.create-group-select:focus {
+  border-color: var(--text-muted);
+}
+
+.create-group-select option {
+  background: var(--primary-dark);
+  color: var(--text);
+}

@@ -1,0 +1,58 @@
+package com.example.studysync.models;
+
+import java.time.Instant;
+import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Entity
+@Table(name= "student")
+@Setter
+@Getter
+@NoArgsConstructor
+public class Student {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable=false)
+    private String firstName;
+
+    @Column(nullable=false)
+    private String lastName;
+    
+    @Column(nullable=false, unique=true)
+    private String email;
+
+    @Column(nullable=false)
+    private String passwordHash;
+
+    private String major;
+
+    private float gpa;
+
+    @CreationTimestamp
+    @Column(updatable=false)
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+    @OneToMany(mappedBy="student", cascade=CascadeType.ALL)
+    private List<Availability> availabilities;
+}
