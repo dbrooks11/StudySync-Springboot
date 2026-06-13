@@ -1,8 +1,8 @@
 package com.example.studysync.repository;
 
 import com.example.studysync.models.Availability;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AvailabilityRepository extends CrudRepository<Availability, Long> {
+public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
 
 }
