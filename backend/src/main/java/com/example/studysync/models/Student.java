@@ -44,7 +44,8 @@ public class Student {
 
     private String major;
 
-    private float gpa;
+    @Column(precision = 2)
+    private Double gpa = 0.0;
 
     @CreationTimestamp
     @Column(updatable=false)
