@@ -1,14 +1,11 @@
 package com.example.studysync.models;
 
-import java.time.Instant;
-
-import com.example.studysync.models.Student;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
+import java.time.Instant;
 
 
 @Entity
@@ -21,6 +18,7 @@ public class Availability {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("day")
     private String dayOfWeek;
 
     @Column(nullable=false)

@@ -2,6 +2,7 @@ package com.example.studysync.models;
 
 import com.example.studysync.models.id.ParticipatingId;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Participating {
 
     @EmbeddedId

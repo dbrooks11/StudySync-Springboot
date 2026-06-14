@@ -2,6 +2,7 @@ package com.example.studysync.models;
 
 import com.example.studysync.models.id.EnrollmentId;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Enrollment implements Serializable{
 
     @EmbeddedId

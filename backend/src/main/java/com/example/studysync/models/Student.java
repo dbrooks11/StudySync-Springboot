@@ -3,6 +3,7 @@ package com.example.studysync.models;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -40,6 +41,7 @@ public class Student {
     private String email;
 
     @Column(nullable=false)
+    @JsonProperty("password")
     private String passwordHash;
 
     private String major;
@@ -56,4 +58,5 @@ public class Student {
 
     @OneToMany(mappedBy="student", cascade=CascadeType.ALL)
     private List<Availability> availabilities;
+
 }

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class ParticipatingId {
     private Long studentId;
 
