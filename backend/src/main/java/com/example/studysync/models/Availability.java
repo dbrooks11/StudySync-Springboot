@@ -1,11 +1,12 @@
 package com.example.studysync.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.LocalTime;
 
 
 @Entity
@@ -19,14 +20,16 @@ public class Availability {
     private Long id;
 
     @JsonProperty("day")
+    @Column(nullable = false)
     private String dayOfWeek;
 
     @Column(nullable=false)
-    private Instant startTime;
+    private LocalTime startTime;
 
     @Column(nullable=false)
-    private Instant endTime;
+    private LocalTime endTime;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="student_id", nullable=false)
     private Student student;
