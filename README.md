@@ -6,7 +6,7 @@ A web-based platform that helps university students find and organize study grou
 
 ## Tech Stack
  
-- **Backend** — Java 26 / Spring Boot 4.x (Spring Data JPA + Hibernate) [Upgraded from Flask]
+- **Backend** — Java 21 / Spring Boot 4.x (Spring Data JPA + Hibernate) [Upgraded from Flask]
 - **Frontend** — React (Node 20)
 - **Database** — PostgreSQL 16
 - **Containerization** — Docker + Docker Compose
@@ -23,7 +23,7 @@ You need **Git**, **Docker Desktop**, and a **Java Development Kit (JDK 26)** in
 - **Windows / macOS**: https://www.docker.com/products/docker-desktop
 - **Linux**: https://docs.docker.com/engine/install/
 
-### Install JDK 26
+### Install JDK 21
 - **All OS**: Download from [Eclipse Temurin (Adoptium)](https://adoptium.net/) or use your IDE (e.g., IntelliJ IDEA) to detect and install it automatically.
 
 ---
