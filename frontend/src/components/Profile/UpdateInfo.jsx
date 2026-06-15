@@ -4,30 +4,29 @@
 export default function UpdateInfoForm({label, name, value, setProfile, openForm}){
 
     async function updateProfile(formData) {
+        const formObj = Object.fromEntries(formData);
+
         try{
         const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/profile/edit`, {
             credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
             method: "PATCH",
-            body: formData
+            body: JSON.stringify(formObj)
         })
         
-        const data = await response.json()
-
-        if(!response.ok){
-            throw new Error(data.error)
-        }
+        const data = await response.json();
+        
         setProfile(prevProfile => {
             return (
                 {
                     ...prevProfile,
-                    info: {
-                        ...prevProfile.info,
-                        ...data.profile
-                    }
+                    ...data
+                    
                 }
             )
         })
-        console.log(data.profile)
         openForm(false)
         } catch(error){
             console.log(error)

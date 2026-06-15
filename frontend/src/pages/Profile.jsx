@@ -15,8 +15,8 @@ export default function Profile(){
                     method: "GET"
                 })
                 const data = await response.json()
-                if(!response.ok) throw new Error(data)
-                setProfile(data.profile)
+                if (!response.ok) throw new Error(data)
+                setProfile(data)
             }catch(error){
                 console.log(error)
             }
@@ -28,8 +28,7 @@ export default function Profile(){
                     credentials: "include"
                 })
                 const data = await response.json()
-                if(!response.ok) throw new Error(data.error)
-                setJoinedGroups(data.joined_groups)
+                setJoinedGroups(data.joinedGroups)
             }catch(error){
                 console.log(error)
             }
@@ -39,6 +38,7 @@ export default function Profile(){
         fetchJoinedGroups()
     }, []);
 
+
     const leaveGroup = async(groupId) => {
         try{
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/leave/${groupId}`, {
@@ -46,8 +46,7 @@ export default function Profile(){
                 method: "DELETE"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setJoinedGroups(data.joined_groups)
+            setJoinedGroups(data)
         }catch(error){
             console.log(error)
         }
@@ -58,17 +57,17 @@ export default function Profile(){
             <div className="top-row">
                 <div className="profile-card">
                     <Info
-                        firstName={profile.info?.first_name}
-                        lastName={profile.info?.last_name}
-                        email={profile.info?.email}
-                        major={profile.info?.major}
-                        gpa={profile.info?.gpa}
+                        firstName={profile?.firstName}
+                        lastName={profile?.lastName}
+                        email={profile?.email}
+                        major={profile?.major}
+                        gpa={profile?.gpa}
                         setProfile={setProfile}
                     />
                 </div>
                 <div className="avail-card">
                     <Availability
-                        availabilities={profile?.availability}
+                        availabilities={profile?.availabilities}
                         setProfile={setProfile}
                     />
                 </div>
@@ -77,9 +76,9 @@ export default function Profile(){
                 <h3>Your Joined Groups</h3>
                 <div className="course-cards-container">
                     {joinedGroups.map((group) => (
-                        <div key={group.group_id} className="group-card">
+                        <div key={group.id} className="group-card">
                             <GroupLayout {...group} />
-                            <button className="remove-btn" type="button" onClick={() => leaveGroup(group.group_id)}>
+                            <button className="remove-btn" type="button" onClick={() => leaveGroup(group.id)}>
                                 Leave
                             </button>
                         </div>

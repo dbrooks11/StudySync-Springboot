@@ -9,16 +9,16 @@ export default function JoinGroup() {
     const [allGroups, setAllGroups] = useState([])
 
     const filteredRecommended = recommendedGroups.filter(group =>
-        group.group_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        group.course_code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        group.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.course.courseCode?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.course.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         group.location?.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
     const filteredAll = allGroups.filter(group =>
-        group.group_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        group.course_code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        group.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.course.courseCode?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        group.course.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         group.location?.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
@@ -26,10 +26,10 @@ export default function JoinGroup() {
         try{
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/all`, {
                 credentials: "include",
+                method: "GET"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setAllGroups(data.all_groups)
+            setAllGroups(data)
         }catch(error){
             console.error(error)
         }
@@ -39,10 +39,11 @@ export default function JoinGroup() {
         try{
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/all/recommend`, {
                 credentials: "include",
+                method: "GET"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setRecommendedGroups(data.recommended_groups)
+            setRecommendedGroups(data)
+            console.log(data)
         }catch(error){
             console.error(error)
         }
@@ -55,12 +56,10 @@ export default function JoinGroup() {
 
     async function joinGroup(groupId) {
         try{
-            const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/join/${groupId}`, {
+            await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/join/${groupId}`, {
                 credentials: "include",
                 method: "POST"
             })
-            const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
             fetchRecommendedGroups()
             fetchAllGroups()
         }catch(error){
@@ -70,12 +69,10 @@ export default function JoinGroup() {
 
     async function leaveGroup(groupId) {
         try{
-            const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/leave/${groupId}`, {
+            await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/leave/${groupId}`, {
                 credentials: "include",
                 method: "DELETE"
             })
-            const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
             fetchRecommendedGroups()
             fetchAllGroups()
         }catch(error){
@@ -97,11 +94,11 @@ export default function JoinGroup() {
                 <h3>All Groups</h3>
                 <div className="course-cards-container">
                     {filteredAll.map(group => (
-                        <div key={group.group_id} className="group-card">
+                        <div key={group.id} className="group-card">
                             <GroupLayout {...group} />
-                            {!group.is_joined
-                                ? <button className="enroll-btn" onClick={() => joinGroup(group.group_id)}>Join</button>
-                                : <button className="remove-btn" onClick={() => leaveGroup(group.group_id)}>Leave</button>
+                            {!group.isJoined
+                                ? <button className="enroll-btn" onClick={() => joinGroup(group.id)}>Join</button>
+                                : <button className="remove-btn" onClick={() => leaveGroup(group.id)}>Leave</button>
                             }
                         </div>
                     ))}

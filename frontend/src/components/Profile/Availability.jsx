@@ -3,13 +3,23 @@ import { formatTime } from '../../util/datetimeConversion'
 
 export default function Availability({availabilities = [], setProfile}) {
 
-    const addAvailability = async(formData) => {
+    const addAvailability = async (formData) => {
+        
+        const newFormObj = Object.fromEntries(formData);
+        const updatedObj = {
+            ...newFormObj,
+            startTime: newFormObj.startTime + ":00",
+            endTime: newFormObj.endTime + ":00"
+        }
 
         try{
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/profile/availability/add`, {
                 credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 method: "POST",
-                body: formData
+                body: JSON.stringify(updatedObj)
             })
 
             const data = await response.json()
@@ -20,10 +30,9 @@ export default function Availability({availabilities = [], setProfile}) {
             setProfile((profile) => {
                 return {
                     ...profile,
-                    'availability': data.availabilities
+                    'availabilities': data
                 }
             })
-            console.log(data)
         }catch(error){
             console.log(error)
         }
@@ -44,7 +53,7 @@ export default function Availability({availabilities = [], setProfile}) {
             setProfile((profile) => {
                 return {
                     ...profile,
-                    'availability': data.availabilities
+                    'availabilities': data
                 }
             })
             console.log(data)
@@ -81,29 +90,29 @@ export default function Availability({availabilities = [], setProfile}) {
                 </div>
                 <div>
                     <label htmlFor='start-time'>Start Time:</label>
-                    <input type='time' id='start-time' name='start_time' min={'00:00'} max={'24:00'}></input>
+                    <input type='time' id='start-time' name='startTime' min={'00:00'} max={'24:00'}></input>
                 </div>
                 <div>
                     <label htmlFor='end-time'>End Time:</label>
-                    <input type='time' id='start-time' name='end_time' min={'00:00'} max={'24:00'}></input>
+                    <input type='time' id='start-time' name='endTime' min={'00:00'} max={'24:00'}></input>
                 </div>
                 <button type='submit'>+</button>
             </form>
             <div className='availabilities-container'>
                 {availabilities.map(availability => {
                     return(
-                        <div key={availability.avail_id} className='availabilities'>
+                        <div key={availability.id} className='availabilities'>
                             <div>
-                                <span>{availability.day_of_week}</span>
+                                <span>{availability.day}</span>
                                 <div>
-                                    <span>{formatTime(availability.start_time)}</span>
+                                    <span>{formatTime(availability.startTime)}</span>
                                     <span>-</span>
-                                    <span>{formatTime(availability.end_time)}</span>
+                                    <span>{formatTime(availability.endTime)}</span>
                                 </div>
                             </div>
                             <button 
                                 type='button' 
-                                onClick={() => deleteAvailability(availability.avail_id, availability.day_of_week)}
+                                onClick={() => deleteAvailability(availability.id, availability.day)}
                             >
                                 Delete
                             </button>

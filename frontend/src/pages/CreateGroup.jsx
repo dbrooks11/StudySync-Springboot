@@ -6,16 +6,23 @@ export default function CreateGroup() {
     const [createdGroups, setCreatedGroups] = useState([])
 
     async function createGroup(formData) {
+        const formObj = Object.fromEntries(formData)
+        const updatedFormObj = {
+            ...formObj,
+            maxSize: Number(formObj.maxSize),
+            meetingTime: new Date(formObj.meetingTime).toISOString()
+        }
         try{
-            const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/create`, {
+            await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/create/${formObj.courseId}`, {
                 credentials: "include",
                 method: "POST",
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedFormObj)
             })
-            const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
+        
             await getCreatedGroups()
-            console.log(data.message)
         }catch(error){
             console.error(error)
         }
@@ -28,8 +35,7 @@ export default function CreateGroup() {
                 method: "DELETE"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setCreatedGroups(data.my_groups)
+            setCreatedGroups(data)
         }catch(error){
             console.error(error)
         }
@@ -42,8 +48,7 @@ export default function CreateGroup() {
                 method: "GET"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setCourseList(data.course_list)
+            setCourseList(data)
         }catch(error){
             console.error(error)
         }
@@ -55,8 +60,7 @@ export default function CreateGroup() {
                 credentials: "include"
             })
             const data = await response.json()
-            if(!response.ok) throw new Error(data.error)
-            setCreatedGroups(data.my_groups)
+            setCreatedGroups(data.myGroups)
         }catch(error){
             console.error(error)
         }
@@ -76,7 +80,7 @@ export default function CreateGroup() {
                     <div className="create-group-grid">
                         <div className="create-group-field">
                             <label className="create-group-label" htmlFor="group-name">Group Name</label>
-                            <input placeholder="e.g. Monday Crammers" name="group_name" id="group-name" />
+                            <input placeholder="e.g. Monday Crammers" name="name" id="group-name" />
                         </div>
                         <div className="create-group-field">
                             <label className="create-group-label" htmlFor="location">Location</label>
@@ -84,18 +88,18 @@ export default function CreateGroup() {
                         </div>
                         <div className="create-group-field">
                             <label className="create-group-label" htmlFor="group-size">Group Size</label>
-                            <input placeholder="e.g. 5" id="group-size" name="max_size" type="number" />
+                            <input placeholder="e.g. 5" id="group-size" name="maxSize" type="number" />
                         </div>
                         <div className="create-group-field">
                             <label className="create-group-label" htmlFor="meeting">Meeting Time</label>
-                            <input type="datetime-local" id="meeting" name="meeting_time" />
+                            <input type="datetime-local" id="meeting" name="meetingTime" />
                         </div>
                         <div className="create-group-field">
                             <label className="create-group-label" htmlFor="courses">Course</label>
-                            <select name="course_id" id="courses" className="create-group-select">
+                            <select name="courseId" id="courses" className="create-group-select">
                                 {courseList.map(course => (
-                                    <option key={course.course_id} value={course.course_id}>
-                                        {course.course_code} — {course.course_name}
+                                    <option key={course.courseId} value={course.courseId}>
+                                        {course.courseCode} - {course.name}
                                     </option>
                                 ))}
                             </select>
@@ -109,9 +113,9 @@ export default function CreateGroup() {
                 <h3>Your Created Groups</h3>
                 <div className="course-cards-container">
                     {createdGroups.map((group) => (
-                        <div key={group.group_id} className="group-card">
+                        <div key={group.id} className="group-card">
                             <GroupLayout {...group} />
-                            <button className="remove-btn" type="button" onClick={() => deleteGroup(group.group_id, group.course_id)}>
+                            <button className="remove-btn" type="button" onClick={() => deleteGroup(group.id, group.course.courseId)}>
                                 Delete
                             </button>
                         </div>

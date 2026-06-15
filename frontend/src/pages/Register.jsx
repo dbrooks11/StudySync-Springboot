@@ -3,21 +3,24 @@ import { useNavigate } from 'react-router-dom'
 export default function Register() {
     const navigate = useNavigate()
 
-    const registerForm = async(formData) => {
-        console.log(formData)
+    const registerForm = async (formData) => {
+        
+        const newFormObj = Object.fromEntries(formData);
+        const formObjUpdated = {
+            ...newFormObj,
+            gpa: Number(newFormObj.gpa)
+        }
        try {
         const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/register`, {
             method: "POST",
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObjUpdated)
         })
-
-        const data = await response.json()
-
+           
         if(response.ok){
-            console.log(data.message)
             navigate('/login')
-        }else{
-            throw new Error(data.error)
         }
        }catch(error){
         console.log(error)
@@ -35,11 +38,11 @@ export default function Register() {
                     <div className="auth-grid">
                         <div className="auth-field">
                             <label className="auth-label" htmlFor="first_name">First Name</label>
-                            <input className="auth-input" id="first_name" name="first_name" placeholder="John" />
+                            <input className="auth-input" id="first_name" name="firstName" placeholder="John" />
                         </div>
                         <div className="auth-field">
                             <label className="auth-label" htmlFor="last_name">Last Name</label>
-                            <input className="auth-input" id="last_name" name="last_name" placeholder="Doe" />
+                            <input className="auth-input" id="last_name" name="lastName" placeholder="Doe" />
                         </div>
                         <div className="auth-field">
                             <label className="auth-label" htmlFor="major">Major</label>

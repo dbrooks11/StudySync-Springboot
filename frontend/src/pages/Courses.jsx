@@ -9,14 +9,14 @@ export default function Courses(){
     const [enrolledCourses, setEnrolledCourses] = useState([])
 
     const filteredCourseList = courseList.filter(course =>
-        course.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.courseCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         course.department?.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
     const filteredEnrolled = enrolledCourses.filter(course =>
-        course.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.course_name?.toLowerCase().includes(searchTerm.toLowerCase())
+        course.courseCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.name?.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
     
@@ -31,12 +31,8 @@ export default function Courses(){
 
             const data = await response.json()
 
-            if(!response.ok){
-                throw new Error(data)
-            }
-
-            setCourseList(data.course_list)
-            setEnrolledCourses(data.enrolled_courses)
+            setCourseList(data.courseList)
+            setEnrolledCourses(data.enrolledCourses)
 
             }catch(error){
                 console.error(error)
@@ -46,46 +42,48 @@ export default function Courses(){
         getCourses()
     }, []);
 
-    const handleCourseListSubmit = async(formData) => {
+    const handleCourseListSubmit = async (formData) => {
+        
+        const formObj = Object.fromEntries(formData)
+        const updatedFormObj = {
+            ...formObj,
+            credits: Number(formObj.credits)
+        }
+
         try {
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/courses/course-list/add`, {
                 credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 method: "POST",
-                body: formData
+                body: JSON.stringify(updatedFormObj)
             })
 
             const data = await response.json()
 
-            if (!response.ok) {
-                throw new Error(data.error)
-            }
-
-            setCourseList(data.course_list)
+            setCourseList(data)
 
         }catch(error){
             console.error(error)
         }
     };
 
-    const enrollCourse = async(courseId, courseCode) => {
+    const enrollCourse = async (courseId, courseCode) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/courses/enroll`, {
                 credentials: "include",
                 headers: { 'Content-Type': 'application/json' },
                 method: "POST",
                 body: JSON.stringify({
-                    course_id: courseId,
-                    course_code: courseCode
+                    courseId: courseId,
+                    courseCode: courseCode
                 })
             })
 
             const data = await response.json()
 
-            if(!response.ok){
-                throw new Error(data.error)
-            }
-
-            setEnrolledCourses(data.enrolled_courses)
+            setEnrolledCourses(data)
         }catch(error){
             console.error(error)
         }
@@ -100,11 +98,7 @@ export default function Courses(){
 
             const data = await response.json()
 
-            if(!response.ok){
-                throw new Error(data.error)
-            }
-
-            setEnrolledCourses(data.enrolled_courses)
+            setEnrolledCourses(data)
         }catch(error){
             console.error(error)
         }
@@ -117,10 +111,10 @@ export default function Courses(){
             <p className="courses-subtitle">Don't see your course? Add it to the list then enroll!</p>
             <form className="course-form" action={handleCourseListSubmit}>
                 <div className="course-grid">
-                    <input placeholder="Course Code (ex. COP3330)" name="course_code" />
-                    <input placeholder="Course Name" name="course_name" />
+                    <input placeholder="Course Code (ex. COP3330)" name="courseCode" />
+                    <input placeholder="Course Name" name="name" />
                     <input placeholder="Department" name="department" />
-                    <input placeholder="Credit Hours" name="credit_hours" type="number" />
+                    <input placeholder="Credit Hours" name="credits" type="number" />
                 </div>
                 <button type="submit" className="submit-btn">Add Course</button>
             </form>
@@ -131,10 +125,10 @@ export default function Courses(){
                 <h3>Enrolled Courses</h3>
                 <div className="course-cards-container">
                     {filteredEnrolled.map((course) => (
-                        <div className="course-card" key={course.course_id}>
+                        <div className="course-card" key={course.courseId}>
                             <div className="course-card-top">
-                                <span className="course-code">{course.course_code}</span>
-                                <span className="course-name">{course.course_name ?? 'N/A'}</span>
+                                <span className="course-code">{course.courseCode}</span>
+                                <span className="course-name">{course.name ?? 'N/A'}</span>
                             </div>
                             <div className="course-card-bottom">
                                 <div className="course-detail">
@@ -146,7 +140,7 @@ export default function Courses(){
                                     <span>{course.credits ?? 'N/A'}</span>
                                 </div>
                             </div>
-                            <button className="remove-btn" type="button" onClick={() => deleteEnrolledCourse(course.course_id, course.course_code)}>
+                            <button className="remove-btn" type="button" onClick={() => deleteEnrolledCourse(course.courseId, course.courseCode)}>
                                 Remove
                             </button>
                         </div>
@@ -157,10 +151,10 @@ export default function Courses(){
                 <h3>Course List</h3>
                 <div className="course-cards-container">
                     {filteredCourseList.map((course) => (
-                        <div className="course-card" key={course.course_id}>
+                        <div className="course-card" key={course.courseId}>
                             <div className="course-card-top">
-                                <span className="course-code">{course.course_code}</span>
-                                <span className="course-name">{course.course_name ?? 'N/A'}</span>
+                                <span className="course-code">{course.courseCode}</span>
+                                <span className="course-name">{course.name ?? 'N/A'}</span>
                             </div>
                             <div className="course-card-bottom">
                                 <div className="course-detail">
@@ -172,7 +166,7 @@ export default function Courses(){
                                     <span>{course.credits ?? 'N/A'}</span>
                                 </div>
                             </div>
-                            <button className="enroll-btn" type="button" onClick={() => enrollCourse(course.course_id, course.course_code)}>
+                            <button className="enroll-btn" type="button" onClick={() => enrollCourse(course.courseId, course.courseCode)}>
                                 Enroll
                             </button>
                         </div>

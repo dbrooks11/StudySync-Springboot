@@ -12,18 +12,14 @@ export default function MyGroups(){
             try {
                 const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/groups/me`, {
                     credentials: "include",
+                    method: "GET"
                 })
 
                 const data = await response.json()
 
-                if(!response.ok){
-                    throw new Error(data.error)
-                }
+                setCreatedGroups(data.myGroups)
+                setJoinedGroups(data.joinedGroups)
 
-                setCreatedGroups(data.my_groups)
-                setJoinedGroups(data.joined_groups)
-
-                console.log(data)
             }catch(error){
                 console.error(error)
             }
@@ -42,13 +38,8 @@ export default function MyGroups(){
 
             const data = await response.json()
 
-            if(!response.ok){
-                    throw new Error(data.error)
-            }
+            setCreatedGroups(data.myGroups)
 
-            setCreatedGroups(data.my_groups)
-
-            console.log(data)
         }catch(error){
             console.error(error)
         }
@@ -62,14 +53,8 @@ export default function MyGroups(){
             })
 
             const data = await response.json()
-
-            if(!response.ok){
-                    throw new Error(data.error)
-            }
-
             setJoinedGroups(data.joined_groups)
 
-            console.log(data)
         }catch(error){
             console.error(error)
         }
@@ -81,11 +66,11 @@ export default function MyGroups(){
                 <h3>Your Created Groups</h3>
                 {createdGroups.map((group) => {
                     return(
-                        <div className="group" key={group.group_id}>
+                        <div className="group" key={group.id}>
                             <GroupLayout
                                 {...group}
                             />
-                            <button type="button" onClick={() => deleteGroup(group.group_id, group.course_id)}>Delete</button>
+                            <button type="button" onClick={() => deleteGroup(group.id, group.course.courseId)}>Delete</button>
                         </div>
                     )
                 })}
@@ -94,11 +79,11 @@ export default function MyGroups(){
                 <h3>Your Joined Groups</h3>
                 {joinedGroups.map((group) => {
                     return(
-                        <div className="group" key={group.group_id}>
+                        <div className="group" key={group.id}>
                             <GroupLayout 
                                 {...group}
                             />
-                            <button type="button" onClick={() => leaveGroup(group.group_id)}>Leave</button>
+                            <button type="button" onClick={() => leaveGroup(group.id)}>Leave</button>
                         </div>
                     )
                 })}

@@ -9,18 +9,16 @@ export default function Login() {
         try{
             const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/login`, {
                 method: "POST",
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(formData)),
                 credentials: "include"
             })
 
-            const data = await response.json()
-
             if(response.ok) {
-                console.log(data.message)
                 navigate('/profile')
                 
-            }else{
-                throw new Error(data.error)
             }
         }catch(error){
             console.log(error)
