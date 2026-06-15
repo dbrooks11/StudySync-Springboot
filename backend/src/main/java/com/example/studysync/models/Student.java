@@ -1,23 +1,15 @@
 package com.example.studysync.models;
 
-import java.time.Instant;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.util.List;
 
 
 @Entity
@@ -47,7 +39,7 @@ public class Student {
     private String major;
 
     @Column(precision = 2)
-    private Double gpa = 0.0;
+    private Double gpa;
 
     @CreationTimestamp
     @Column(updatable=false)

@@ -33,6 +33,26 @@ public class ProfileController {
         return studentRepository.findStudentById(id);
     }
 
+    @PatchMapping("/edit")
+    public Optional<StudentDTO> profileEdit(@RequestBody Student updateData, @AuthenticationPrincipal CustomUserDetails currentUser){
+        Long id = currentUser.getId();
+
+        Student existingStudent = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        if (updateData.getGpa() != null) {
+            existingStudent.setGpa(updateData.getGpa());
+        }
+        if (updateData.getMajor() != null) {
+            existingStudent.setMajor(updateData.getMajor());
+        }
+        if (updateData.getEmail() != null) {
+            existingStudent.setEmail(updateData.getEmail());
+        }
+        studentRepository.save(existingStudent);
+        return studentRepository.findStudentById(id);
+    }
+
     @PostMapping("/availability/add")
     public ResponseEntity<?> addAvailability(@RequestBody Availability data, @AuthenticationPrincipal CustomUserDetails currentUser){
         Long id = currentUser.getId();
