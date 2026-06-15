@@ -28,7 +28,7 @@ public class Participating {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("groupId")
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private StudyGroup group;
 
     @CreationTimestamp
