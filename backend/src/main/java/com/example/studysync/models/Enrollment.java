@@ -1,6 +1,7 @@
 package com.example.studysync.models;
 
 import com.example.studysync.models.id.EnrollmentId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,13 @@ public class Enrollment implements Serializable{
     @EmbeddedId
     private EnrollmentId id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("studentId")
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("courseId")
     @JoinColumn(name = "course_id", nullable = false)

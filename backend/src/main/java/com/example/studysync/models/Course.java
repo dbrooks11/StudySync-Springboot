@@ -1,5 +1,6 @@
 package com.example.studysync.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +21,10 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @JsonProperty("courseId")
     private Long id;
 
+    @JsonProperty("courseCode")
     @Column(nullable=false, unique=true)
     private String code;
 
